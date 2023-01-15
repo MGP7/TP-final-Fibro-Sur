@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(path.join(__dirname, 'views/partials'))
 
 //Conexión a la base de datos
-const conexion = mysql2.createConnection({
+/*const conexion = mysql2.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -39,7 +39,7 @@ const conexion = mysql2.createConnection({
 conexion.connect((err) => {
     if (err) throw err;
     console.log(`Conectado a la Database ${process.env.DATABASE}`)
-})
+})*/
 
 
 
@@ -52,6 +52,10 @@ app.get('/formulario', (req, res) => {
     res.render('formulario')
 });
 
+app.get('/sinDatos', (req, res) => {
+    res.render('sinDatos')
+});
+
 app.get('/nuestrotaller', (req, res) => {
     res.render('nuestrotaller')
 });
@@ -59,7 +63,7 @@ app.get('/nuestrotaller', (req, res) => {
 app.get('/productos', (req, res) => {
     
 
-   let sql = "SELECT * from productos";
+   /*let sql = "SELECT * from productos";
     conexion.query(sql, function(err, result){
         if (err) throw err;
             console.log(result);
@@ -68,8 +72,10 @@ app.get('/productos', (req, res) => {
         datos: result
     })
  
+})*/
+res.render('sinDatos')
 })
-})
+
 
 
 app.get('/contacto', (req, res) => {
@@ -102,16 +108,15 @@ app.post('/formulario', (req, res) =>{
         descripcion: descripcion
     }
 
-    let sql = "INSERT INTO productos set ?";
+    /*let sql = "INSERT INTO productos set ?";
 
     conexion.query(sql, datos, function(err){
         if (err) throw err;
             console.log(`1 Registro insertado`);
             res.render('formulario');
-    })
-    /*res.json({
-        prueba: 'Probando deploy sin conexion a la DB'
- })*/
+    })*/
+    res.render('sinDatos'
+ )
 })
 
 app.post('/contacto', (req, res) =>{
@@ -152,7 +157,7 @@ app.post('/contacto', (req, res) =>{
         email: email
     }
 
-    let sql = "INSERT INTO contactos set ?";
+    /*let sql = "INSERT INTO contactos set ?";
 
     conexion.query(sql, datos, function(err){
         if (err) throw err;
@@ -160,11 +165,9 @@ app.post('/contacto', (req, res) =>{
             //Email
             envioMail().catch(console.error);
             res.render('respuesta');
-    })
+    })*/
 
-    /*res.json({
-        prueba: 'Probando deploy sin conexion a la DB'
- })*/
+    res.render('sinDatos')
 })
 
 
@@ -172,17 +175,15 @@ app.post('/delete', (req, res) =>{
 
     console.log(req.body.idProducto);
     
-    let sql = "DELETE FROM productos where idProducto = " + req.body.idProducto + "";
+   /* let sql = "DELETE FROM productos where idProducto = " + req.body.idProducto + "";
         console.log(sql);
         conexion.query(sql, function(err, result){
             if (err) throw err;
                 console.log('Dato eliminado: ' + result.affectedRows);
                 res.render('formulario')
         
-            })
- /*res.json({
-        prueba: 'Probando deploy sin conexion a la DB'
- })*/
+            })*/
+ res.render('sinDatos')
 })
  
 
@@ -193,7 +194,7 @@ app.post('/update', (req, res) => {
     const descripcion = req.body.descripcion;
     const idProducto = req.body.idProducto;
 
-    let sql = "UPDATE productos SET nombre = '" 
+  /*  let sql = "UPDATE productos SET nombre = '" 
     + nombre 
     + "', precio = '" 
     + precio 
@@ -210,11 +211,9 @@ app.post('/update', (req, res) => {
         if (err) throw err;
             console.log('Dato Actualizado: ' + result.affectedRows);
             res.render('formulario')
-    })      
+    })  */    
 
-    /*res.json({
-        prueba: 'Probando deploy sin conexion a la DB'
- })*/
+    res.render('sinDatos')
             })
  
 
